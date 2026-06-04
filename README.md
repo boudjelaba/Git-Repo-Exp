@@ -23,7 +23,7 @@ Exemples de Badges GitHub spécifiques au repo disponibles :
 
 ---
 
-![CI](https://github.com/<UTILISATEUR>/Git-Repo-Exp/actions/workflows/ci.yml/badge.svg)
+![CI](https://github.com/boudjelaba/Git-Repo-Exp/actions/workflows/ci.yml/badge.svg)
 
 > Projet d’exemple pour apprendre Flask, Git, GitHub, les branches `main` / `dev` / `feature/*` et une intégration continue simple.
 
