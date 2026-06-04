@@ -612,11 +612,17 @@ Exemple de structure :
 ### Pytest en local
 
 ```bash
+pip install pytest
+```
+
+```bash
 python -m pytest
 ```
 
 ```bash
 python -m pytest -v
+# Lancer les tests
+pytest tests/ # ou pytest
 ```
 
 ## Commandes Git utiles

@@ -3,15 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <title>À propos</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
+
     <nav>
-        <a href="{{ url_for('home') }}">Accueil</a>
-        <a href="{{ url_for('about') }}">À propos</a>
+        <a href="/">Accueil</a>
+        <a href="/about">À propos</a>
     </nav>
 
     <h1>À propos</h1>
-    <p>Exemple d’application Flask avec Git et GitHub.</p>
+
+    <p>
+        Exemple d’application Flask avec Git et GitHub.
+    </p>
+
 </body>
 </html>
