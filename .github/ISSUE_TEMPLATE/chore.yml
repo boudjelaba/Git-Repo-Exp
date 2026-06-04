@@ -1,0 +1,111 @@
+name: Chore – Configuration / Maintenance
+description: Tâches de maintenance, configuration CI/CD ou nettoyage
+title: "[BTS-XX] Chore : "
+labels:
+  - chore
+  - ready
+assignees: []
+
+body:
+  - type: markdown
+    id: intro
+    attributes:
+      value: |
+        ## Chore / Maintenance
+        Utilise ce formulaire pour les tâches techniques, de configuration ou de nettoyage.
+
+  - type: textarea
+    id: objective
+    attributes:
+      label: Objectif
+      description: Décrire l’objectif de la tâche
+      placeholder: |
+        Exemple :
+        Mettre en place une pipeline CI/CD fiable et automatisée.
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Solution proposée
+      description: Expliquer comment la tâche sera réalisée
+      placeholder: |
+        Exemple :
+        - Mettre en place `.github/workflows/ci.yml`
+        - Ajouter lint, tests et pre-commit
+        - Configurer semantic-release
+    validations:
+      required: true
+
+  - type: textarea
+    id: scope
+    attributes:
+      label: Portée / Impact
+      description: Décrire les composants impactés
+      placeholder: |
+        Exemple :
+        - Pipeline CI
+        - Dépôt GitHub
+        - Scripts de release
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: acceptance
+    attributes:
+      label: Critères d’acceptation
+      description: Conditions pour considérer la tâche terminée
+      options:
+        - label: CI exécute tests et lint
+        - label: Release automatique fonctionne
+        - label: Changelog généré
+
+  - type: textarea
+    id: validation
+    attributes:
+      label: Tests / Validation
+      description: Décrire comment tester ou valider la tâche
+      placeholder: |
+        Exemple :
+        - Push sur `main`
+        - Vérifier le workflow « CI - Tests Python BTS »
+        - Vérifier la création automatique du tag
+    validations:
+      required: true
+
+  - type: textarea
+    id: deliverable
+    attributes:
+      label: Livrable
+      description: Décrire ce qui sera livré ou modifié
+      placeholder: |
+        Exemple :
+        - Nouveau workflow GitHub Actions
+        - Mise à jour du README
+        - Fichiers de configuration CI
+    validations:
+      required: true
+
+  - type: textarea
+    id: concepts
+    attributes:
+      label: Notions / Concepts
+      description: Notions techniques ou outils impliqués
+      placeholder: |
+        Exemple :
+        - GitHub Actions
+        - CI/CD
+        - Semantic Release
+        - Pre-commit hooks
+    validations:
+      required: false
+
+  - type: input
+    id: link
+    attributes:
+      label: Lien associé
+      description: Issue ou PR liée
+      placeholder: Closes #9
+    validations:
+      required: false

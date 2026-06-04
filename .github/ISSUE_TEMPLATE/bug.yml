@@ -1,0 +1,130 @@
+name: Bug – Correction
+description: Signaler un bug ou un comportement inattendu
+title: "[BTS-XX] Bug : "
+labels:
+  - bug
+  - ready
+assignees: []
+
+body:
+  - type: markdown
+    id: intro
+    attributes:
+      value: |
+        ## Signalement de bug
+        Merci de remplir ce formulaire aussi précisément que possible.
+
+  - type: textarea
+    id: objectif
+    attributes:
+      label: Objectif
+      description: Décrire clairement le bug rencontré
+      placeholder: |
+        Exemple :
+        Lors de l’exécution de l’application, une erreur apparaît lors du chargement des données.
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Étapes pour reproduire
+      description: Décrire comment reproduire le bug
+      placeholder: |
+        Exemple :
+        1. Ouvrir le programme
+        2. Exécuter `main.py`
+        3. Cliquer sur "Importer"
+        4. Observer l’erreur
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Résultat attendu
+      description: Quel devrait être le comportement attendu
+      placeholder: |
+        Exemple :
+        Le fichier est importé sans erreur.
+    validations:
+      required: true
+
+  - type: textarea
+    id: observed
+    attributes:
+      label: Résultat observé
+      description: Comportement réel constaté
+      placeholder: |
+        Exemple :
+        Une exception est levée et l’application se ferme.
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environnement
+      description: Informations sur l’environnement d’exécution
+      placeholder: |
+        Exemple :
+        - OS : Ubuntu 22.04
+        - Python : 3.11
+        - Node : 18.17
+        - Navigateur : Chrome 121
+    validations:
+      required: false
+
+  - type: input
+    id: version
+    attributes:
+      label: Version de l’application
+      description: Version ou commit concerné
+      placeholder: v1.4.2 / commit a1b2c3d
+    validations:
+      required: false
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs / Stack trace
+      description: Coller les logs ou messages d’erreur
+      render: shell
+      placeholder: |
+        Traceback (most recent call last):
+          File "main.py", line 10, in <module>
+            ...
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: acceptance
+    attributes:
+      label: Critères d’acceptation
+      description: Pour considérer le bug résolu
+      options:
+        - label: Bug corrigé
+        - label: Tests unitaires passent
+        - label: CI verte
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priorité
+      description: Impact du bug sur le projet
+      options:
+        - P1 – Critique
+        - P2 – Important
+        - P3 – Moyen
+        - P4 – Faible
+    validations:
+      required: true
+
+  - type: input
+    id: link
+    attributes:
+      label: Lien associé
+      description: Issue ou PR liée
+      placeholder: Closes #12
+    validations:
+      required: false
