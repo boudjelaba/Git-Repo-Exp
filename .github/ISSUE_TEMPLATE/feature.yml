@@ -1,0 +1,107 @@
+name: Feature – Nouvelle fonctionnalité
+description: Proposer une nouvelle fonctionnalité
+title: "[BTS-XX] Feat : "
+labels:
+  - feature
+  - ready
+assignees: []
+
+body:
+  - type: markdown
+    id: intro
+    attributes:
+      value: |
+        ## Nouvelle fonctionnalité
+        Utilise ce formulaire pour proposer et cadrer une nouvelle fonctionnalité.
+
+  - type: textarea
+    id: objective
+    attributes:
+      label: Objectif
+      description: Décrire la nouvelle fonctionnalité
+      placeholder: |
+        Exemple :
+        Ajouter un nouveau mode d’analyse avancée des logs.
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problème / Besoin
+      description: Quel besoin cette fonctionnalité adresse
+      placeholder: |
+        Exemple :
+        Les utilisateurs ne peuvent pas filtrer les logs par niveau ou période.
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Solution proposée
+      description: Comment implémenter la fonctionnalité
+      placeholder: |
+        Exemple :
+        - Ajouter `nouvelle_fonction.py`
+        - Mettre à jour `main.py` pour gérer le nouveau mode
+        - Ajouter une option CLI `--advanced`
+    validations:
+      required: true
+
+  - type: textarea
+    id: scope
+    attributes:
+      label: Portée / Composants impactés
+      description: Parties du projet concernées
+      placeholder: |
+        Exemple :
+        - Module d’analyse
+        - Interface CLI
+        - Documentation utilisateur
+    validations:
+      required: false
+
+  - type: textarea
+    id: impact
+    attributes:
+      label: Impact attendu
+      description: Bénéfices fonctionnels et techniques
+      placeholder: |
+        Exemple :
+        - Analyse plus fine
+        - Meilleure expérience utilisateur
+        - Base extensible pour futures features
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: acceptance
+    attributes:
+      label: Critères d’acceptation
+      description: Conditions pour considérer la fonctionnalité terminée
+      options:
+        - label: Fonctionnalité implémentée
+        - label: Tests unitaires ajoutés
+        - label: CI verte
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priorité
+      description: Importance de la fonctionnalité
+      options:
+        - P1 – Haute
+        - P2 – Moyenne
+        - P3 – Basse
+    validations:
+      required: true
+
+  - type: input
+    id: link
+    attributes:
+      label: Lien associé
+      description: Issue ou PR liée
+      placeholder: Closes #15
+    validations:
+      required: false
