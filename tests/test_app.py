@@ -1,21 +1,16 @@
-from app import app
-
-def test_home():
-    client = app.test_client()
+def test_home(client):
     response = client.get("/")
     assert response.status_code == 200
+    assert "Accueil" in response.get_data(as_text=True)
+    assert "Bienvenue" in response.get_data(as_text=True)
 
-def test_about():
-    client = app.test_client()
+def test_about(client):
     response = client.get("/about")
     assert response.status_code == 200
+    body = response.get_data(as_text=True)
+    assert "À propos" in body
 
-def test_home_contains_title():
-    client = app.test_client()
-    response = client.get("/")
-    assert b"Accueil" in response.data
-
-def test_home_content(client):
-    response = client.get("/")
-    assert response.status_code == 200
-    assert b"Bienvenue" in response.data
+def test_404(client):
+    response = client.get("/does-not-exist")
+    assert response.status_code == 404
+    assert "Page non trouvée" in response.get_data(as_text=True)

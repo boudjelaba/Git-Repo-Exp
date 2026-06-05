@@ -1,20 +1,9 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>Accueil</title>
+{% extends "base.html" %}
 
-    <link rel="stylesheet"
-          href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
+{% block title %}
+Accueil
+{% endblock %}
 
-    <nav>
-        <a href="/">Accueil</a>
-        <a href="/about">À propos</a>
-    </nav>
-
-    <h1>Bienvenue — Page d'accueil du projet Flask</h1>
-
-</body>
-</html>
+{% block content %}
+<h1>Bienvenue — Page d'accueil du projet Flask</h1>
+{% endblock %}

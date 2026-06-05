@@ -158,7 +158,7 @@ Installer Flask puis générer `requirements.txt` :
 
 ```bash
 # touch requirements.txt
-pip install flask
+pip install flask requests pytest
 pip freeze > requirements.txt
 ```
 
@@ -215,6 +215,7 @@ git commit -m "chore: initialisation du dépôt"
 1. Aller sur [github.com/new](https://github.com/new)
 2. Créer un dépôt nommé `Git-Repo-Exp`
 3. **Ne pas cocher** : *Add a README*, *.gitignore*, *License*
+   > Ces fichiers existent déjà localement et seront envoyés lors du premier push.
 
 ### Liaison avec GitHub
 
@@ -547,6 +548,10 @@ feature/about-page
       main
 ```
 
+- ne jamais développer directement sur main ;
+- éviter de développer directement sur dev ;
+- chaque fonctionnalité doit passer par une Pull Request.
+
 ### Workflow de branches
 
 Organisation recommandée :
@@ -674,6 +679,49 @@ jobs:
 
       - name: Run tests
         run: pytest -v
+```
+
+```mermaid
+gitGraph
+    commit id: "Initial commit"
+
+    branch dev
+    checkout dev
+    commit id: "feat: initialisation du projet Flask"
+
+    branch feature/about-page
+    checkout feature/about-page
+    commit id: "feat: ajout page À propos"
+
+    checkout dev
+    merge feature/about-page
+
+    checkout main
+    merge dev tag: "v1.0.0"
+
+    checkout dev
+    branch feature/demo
+    checkout feature/demo
+    commit id: "feat: ajout du titre H2 pendant la démo"
+
+    checkout dev
+    merge feature/demo
+    commit id: "chore: intégration après démonstration"
+
+    checkout main
+    merge dev tag: "v1.1.0"
+
+    checkout dev
+    branch feature/tests-ci
+    checkout feature/tests-ci
+    commit id: "test: ajout des tests pytest"
+    commit id: "ci: ajout GitHub Actions"
+
+    checkout dev
+    merge feature/tests-ci
+
+    checkout main
+    merge dev tag: "v1.1.1"
 ```
 
 ---
