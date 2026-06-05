@@ -23,7 +23,7 @@ Exemples de Badges GitHub spécifiques au repo disponibles :
 
 ---
 
-![CI](https://github.com/<UTILISATEUR>/Git-Repo-Exp/actions/workflows/ci.yml/badge.svg)
+![CI](https://github.com/boudjelaba/Git-Repo-Exp/actions/workflows/ci.yml/badge.svg)
 
 > Projet d’exemple pour apprendre Flask, Git, GitHub, les branches `main` / `dev` / `feature/*` et une intégration continue simple.
 
@@ -40,10 +40,10 @@ Exemples de Badges GitHub spécifiques au repo disponibles :
     - [Objectif](#objectif)
     - [Technologies](#technologies-1)
     - [Schéma d'architecture](#schéma-darchitecture)
-  - [1. Préparation de l’environnement et création du dossier de projet](#1-préparation-de-lenvironnement-et-création-du-dossier-de-projet)
+  - [1. Préparation de l’environnement](#1-préparation-de-lenvironnement)
   - [2. Premier commit du projet](#2-premier-commit-du-projet)
     - [Fichier `.gitignore`](#fichier-gitignore)
-    - [Fichier `README.md`](#fichier-readmemd)
+    - [Fichier `README.md` et Initialisation Git](#fichier-readmemd-et-initialisation-git)
     - [Création du dépôt GitHub](#création-du-dépôt-github)
     - [Liaison avec GitHub](#liaison-avec-github)
   - [3. Création de l’application Flask](#3-création-de-lapplication-flask)
@@ -51,26 +51,31 @@ Exemples de Badges GitHub spécifiques au repo disponibles :
     - [Fichier `app.py`](#fichier-apppy)
     - [Fichier `templates/index.html`](#fichier-templatesindexhtml)
     - [Test local du projet](#test-local-du-projet)
-  - [4. Développement d’une fonctionnalité](#4-développement-dune-fonctionnalité)
-    - [Création de la branche d'intégration `dev`](#création-de-la-branche-dintégration-dev)
-    - [Création d'une branche de fonctionnalité](#création-dune-branche-de-fonctionnalité)
-    - [Développement](#développement)
-    - [Tester localement](#tester-localement)
-    - [Enregistrer les modifications](#enregistrer-les-modifications)
+    - [Enregistrer le travail](#enregistrer-le-travail)
+  - [4. Workflow de branches](#4-workflow-de-branches)
+    - [Diagramme Git](#diagramme-git)
+    - [Développement de la fonctionnalité](#développement-de-la-fonctionnalité)
+    - [Arborescence après la fonctionnalité](#arborescence-après-la-fonctionnalité)
     - [`app.py`](#apppy)
     - [`templates/index.html`](#templatesindexhtml)
       - [`templates/about.html`](#templatesabouthtml)
       - [`static/style.css`](#staticstylecss)
+    - [Tester localement](#tester-localement)
+    - [Enregistrer les modifications](#enregistrer-les-modifications)
     - [Intégration dans `dev`](#intégration-dans-dev)
     - [Publication de la version stable](#publication-de-la-version-stable)
     - [Workflow de branches](#workflow-de-branches)
+  - [5. Tests avec Pytest](#5-tests-avec-pytest)
+    - [Installation](#installation)
+    - [Fichier `tests/test_app.py`](#fichier-teststest_apppy)
+    - [Exécution des tests](#exécution-des-tests)
   - [6. Intégration continue](#6-intégration-continue)
-    - [Pytest en local](#pytest-en-local)
-  - [Commandes Git utiles](#commandes-git-utiles)
-  - [Version stable](#version-stable)
-    - [`requirements.txt`](#requirementstxt)
-    - [Workflow GitHub Actions](#workflow-github-actions)
-    - [Ajouter un nouveau fichier](#ajouter-un-nouveau-fichier)
+    - [Structure attendue](#structure-attendue)
+    - [Fichier `.github/workflows/ci.yml`](#fichier-githubworkflowsciyml)
+  - [7. Commandes Git utiles](#7-commandes-git-utiles)
+    - [Flux de travail courant](#flux-de-travail-courant)
+    - [Version stable](#version-stable)
+  - [8. Version stable](#8-version-stable)
   - [Conclusion](#conclusion)
 <!-- TOC END -->
 
@@ -95,6 +100,7 @@ Ce projet a pour objectif de démontrer :
 - Git.
 - GitHub.
 - GitHub Actions.
+- Pytest.
 
 ### Schéma d'architecture
 
@@ -115,17 +121,15 @@ Mermaid :
 
 ```mermaid
 flowchart TD
-    A[Utilisateur]
-    B[Flask app.py]
-    C[Templates HTML]
-    D[CSS statique]
-
-    A --> B
-    B --> C
-    C --> D
+    A[Utilisateur] --> B[Flask app.py]
+    B --> C[Templates HTML]
+    C --> D[CSS statique]
+    C --> E[Pages HTML rendues]
 ```
 
-## 1. Préparation de l’environnement et création du dossier de projet
+---
+
+## 1. Préparation de l’environnement
 
 Installer les outils nécessaires :
 
@@ -154,9 +158,11 @@ Installer Flask puis générer `requirements.txt` :
 
 ```bash
 # touch requirements.txt
-pip install flask
+pip install flask requests pytest
 pip freeze > requirements.txt
 ```
+
+---
 
 ## 2. Premier commit du projet
 
@@ -191,7 +197,7 @@ __pycache__/
 Thumbs.db
 ```
 
-### Fichier `README.md`
+### Fichier `README.md` et Initialisation Git
 
 Copier et coller le contenu de ce document dans le `README.md`.
 
@@ -209,6 +215,7 @@ git commit -m "chore: initialisation du dépôt"
 1. Aller sur [github.com/new](https://github.com/new)
 2. Créer un dépôt nommé `Git-Repo-Exp`
 3. **Ne pas cocher** : *Add a README*, *.gitignore*, *License*
+   > Ces fichiers existent déjà localement et seront envoyés lors du premier push.
 
 ### Liaison avec GitHub
 
@@ -266,9 +273,7 @@ if __name__ == "__main__":
     <title>Mon Projet Exemple</title>
 </head>
 <body>
-
     <h1>Page d'accueil du projet Flask</h1>
-
 </body>
 </html>
 ```
@@ -285,30 +290,35 @@ Puis ouvrir :
 
 [http://127.0.0.1:5000](http://127.0.0.1:5000)
 
----
-
-Enregistrer le travail :
+### Enregistrer le travail
 
 ```bash
-git init
 git add .
 git commit -m "feat: initialisation du projet Flask"
-git push
+git push -u origin main
 ```
 
 ---
 
-## 4. Développement d’une fonctionnalité
+## 4. Workflow de branches
 
-### Création de la branche d'intégration `dev`
-
-Après la publication de la première version sur `main`, créer une branche `dev` qui servira à centraliser les développements futurs.
+Après la publication de la première version sur `main`, créer une branche `dev` qui servira à centraliser les développements futurs :
 
 ```bash
 git switch -c dev
 # Publier la branche
 git push -u origin dev
 ```
+
+Créer ensuite une branche de fonctionnalité depuis `dev` :
+
+```bash
+git switch dev
+git pull origin dev
+git switch -c feature/about-page
+```
+
+### Diagramme Git
 
 ```mermaid
 gitGraph
@@ -325,18 +335,7 @@ gitGraph
     merge dev tag: "v1.0.0"
 ```
 
-### Création d'une branche de fonctionnalité
-
-Créer une branche depuis `dev` :
-
-```bash
-git switch dev
-git pull origin dev
-
-git switch -c feature/about-page
-```
-
-### Développement
+### Développement de la fonctionnalité
 
 Ajouter la fonctionnalité « À propos » et le CSS (voir sections ci-dessous) :
 
@@ -345,49 +344,30 @@ Ajouter la fonctionnalité « À propos » et le CSS (voir sections ci-dessous) 
 * ajouter `templates/about.html` ;
 * ajouter `static/style.css`.
 
-> Après l'ajout de la fonctionnalité « À propos », l'arborescence devient :
+### Arborescence après la fonctionnalité
 
-  ```text
-  Git-Repo-Exp/
-  ├── .github/
-  │   ├── ISSUE_TEMPLATE/
-  │   ├── pull_request_template.md
-  │   └── workflows/
-  │       └── ci.yml
-  ├── .gitignore
-  ├── app.py
-  ├── LICENSE
-  ├── README.md
-  ├── requirements.txt
-  ├── screenshots/
-  │   ├── home.png
-  │   └── about.png
-  ├── static
-  │   └── style.css
-  ├── templates
-  │      ├── about.html
-  │    └── index.html
-  └── tests/
-      └── test_app.py
-  ```
-
-### Tester localement
-
-```bash
-python app.py
-```
-
-Vérifier :
-
-* [http://127.0.0.1:5000/](http://127.0.0.1:5000/)
-* [http://127.0.0.1:5000/about](http://127.0.0.1:5000/about)
-
-### Enregistrer les modifications
-
-```bash
-git add .
-git commit -m "feat: ajout de la page À propos et du CSS"
-git push -u origin feature/about-page
+```text
+Git-Repo-Exp/
+├── .github/
+│   ├── ISSUE_TEMPLATE/
+│   ├── pull_request_template.md
+│   └── workflows/
+│       └── ci.yml
+├── .gitignore
+├── app.py
+├── LICENSE
+├── README.md
+├── requirements.txt
+├── screenshots/
+│   ├── home.png
+│   └── about.png
+├── static
+│   └── style.css
+├── templates
+│      ├── about.html
+│      └── index.html
+└── tests/
+    └── test_app.py
 ```
 
 ### `app.py`
@@ -417,15 +397,19 @@ if __name__ == "__main__":
 <head>
     <meta charset="UTF-8">
     <title>Accueil</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
+
     <nav>
-        <a href="{{ url_for('home') }}">Accueil</a>
-        <a href="{{ url_for('about') }}">À propos</a>
+        <a href="/">Accueil</a>
+        <a href="/about">À propos</a>
     </nav>
 
-    <h1>Page d’accueil du projet Flask</h1>
+    <h1>Bienvenue — Page d'accueil du projet Flask</h1>
+
 </body>
 </html>
 ```
@@ -438,16 +422,23 @@ if __name__ == "__main__":
 <head>
     <meta charset="UTF-8">
     <title>À propos</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
+
     <nav>
-        <a href="{{ url_for('home') }}">Accueil</a>
-        <a href="{{ url_for('about') }}">À propos</a>
+        <a href="/">Accueil</a>
+        <a href="/about">À propos</a>
     </nav>
 
     <h1>À propos</h1>
-    <p>Exemple d’application Flask avec Git et GitHub.</p>
+
+    <p>
+        Exemple d’application Flask avec Git et GitHub.
+    </p>
+
 </body>
 </html>
 ```
@@ -480,6 +471,25 @@ nav a {
 nav a:hover {
     text-decoration: underline;
 }
+```
+
+### Tester localement
+
+```bash
+python app.py
+```
+
+Vérifier :
+
+* [http://127.0.0.1:5000/](http://127.0.0.1:5000/)
+* [http://127.0.0.1:5000/about](http://127.0.0.1:5000/about)
+
+### Enregistrer les modifications
+
+```bash
+git add .
+git commit -m "feat: ajout de la page À propos et du CSS"
+git push -u origin feature/about-page
 ```
 
 ### Intégration dans `dev`
@@ -538,6 +548,10 @@ feature/about-page
       main
 ```
 
+- ne jamais développer directement sur main ;
+- éviter de développer directement sur dev ;
+- chaque fonctionnalité doit passer par une Pull Request.
+
 ### Workflow de branches
 
 Organisation recommandée :
@@ -565,33 +579,50 @@ gitGraph
     merge dev tag: "v1.0.0"
 ```
 
-```mermaid
-gitGraph
-    commit id: "feat: initialisation du projet Flask"
-    branch dev
-    checkout dev
-    branch feature/about-page
-    checkout feature/about-page
-    commit id: "feat: ajout de la page À propos et du CSS"
-    checkout dev
-    merge feature/about-page
-    checkout main
-    merge dev tag: "v1.0.0"
+---
+
+## 5. Tests avec Pytest
+
+Pytest permet de vérifier automatiquement le comportement de l’application sans lancer le navigateur à la main. Pour Flask, la méthode recommandée consiste à utiliser `app.test_client()` dans des tests isolés.
+
+### Installation
+
+```bash
+pip install pytest
 ```
 
-```text
-chore: initialisation du dépôt
-    ↓
-feat: initialisation du projet Flask
-    ↓
-création de dev
-    ↓
-feature/about-page
-    ↓
-merge dans dev
-    ↓
-merge dans main + tag v1.0.0
+### Fichier `tests/test_app.py`
+
+```python
+import pytest
+from app import app
+
+@pytest.fixture()
+def client():
+    app.config["TESTING"] = True
+    with app.test_client() as client:
+        yield client
+
+def test_home_page(client):
+    response = client.get("/")
+    assert response.status_code == 200
+    assert "Page d'accueil" in response.get_data(as_text=True)
+
+def test_about_page(client):
+    response = client.get("/about")
+    assert response.status_code == 200
+    assert "À propos" in response.get_data(as_text=True)
 ```
+
+### Exécution des tests
+
+```bash
+python -m pytest
+python -m pytest -v
+python -m pytest tests/
+```
+
+---
 
 ## 6. Intégration continue
 
@@ -601,7 +632,9 @@ Le workflow GitHub Actions doit :
 - vérifier la syntaxe ;
 - exécuter les tests si présents.
 
-Exemple de structure :
+GitHub Actions permet de filtrer les déclenchements par branches, notamment avec `push` et `pull_request`.
+
+### Structure attendue
 
 ```text
 .github/
@@ -609,53 +642,7 @@ Exemple de structure :
     └── ci.yml
 ```
 
-### Pytest en local
-
-```bash
-pip install pytest
-```
-
-```bash
-python -m pytest
-```
-
-```bash
-python -m pytest -v
-# Lancer les tests
-pytest tests/ # ou pytest
-```
-
-## Commandes Git utiles
-
-| Commande | Description |
-|---|---|
-| `git log --oneline --graph --all` | Historique visuel. |
-| `git diff main..dev` | Différences entre branches. |
-| `git branch` | Lister les branches locales. |
-| `git branch -d feature/about-page` | Supprimer une branche locale. |
-| `git push origin --delete feature/about-page` | Supprimer une branche distante. |
-
-## Version stable
-
-Les tags comme `v1.0.0` marquent les versions stables sur `main`.
-
-Exemple :
-
-```bash
-git tag -a v1.0.0 -m "Version stable 1.0.0"
-git push origin v1.0.0
-```
-
-### `requirements.txt`
-
-```txt
-flask>=2.0
-requests>=2.28
-```
-
-### Workflow GitHub Actions
-
-Placer ce fichier dans `.github/workflows/`.
+### Fichier `.github/workflows/ci.yml`
 
 ```yaml
 name: CI
@@ -665,6 +652,8 @@ on:
     branches: [main, dev, "feature/**"]
   pull_request:
     branches: [main, dev]
+
+permissions: read-all
 
 jobs:
   test:
@@ -683,38 +672,140 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-
-      - name: Check Flask app imports
-        run: python -m compileall app.py
-
-      - name: Install test dependencies
-        run: |
           pip install pytest
 
+      - name: Check Python syntax
+        run: python -m compileall app.py tests/
+
       - name: Run tests
-        run: pytest
+        run: pytest -v
 ```
 
-### Ajouter un nouveau fichier
+```mermaid
+gitGraph
+    commit id: "Initial commit"
 
-Créer un fichier :
+    branch dev
+    checkout dev
+    commit id: "feat: initialisation du projet Flask"
 
-```text
-nom_fichier.extension
+    branch feature/about-page
+    checkout feature/about-page
+    commit id: "feat: ajout page À propos"
+
+    checkout dev
+    merge feature/about-page
+
+    checkout main
+    merge dev tag: "v1.0.0"
+
+    checkout dev
+    branch feature/demo
+    checkout feature/demo
+    commit id: "feat: ajout du titre H2 pendant la démo"
+
+    checkout dev
+    merge feature/demo
+    commit id: "chore: intégration après démonstration"
+
+    checkout main
+    merge dev tag: "v1.1.0"
+
+    checkout dev
+    branch feature/tests-ci
+    checkout feature/tests-ci
+    commit id: "test: ajout des tests pytest"
+    commit id: "ci: ajout GitHub Actions"
+
+    checkout dev
+    merge feature/tests-ci
+
+    checkout main
+    merge dev tag: "v1.1.1"
 ```
 
-Puis :
+---
+
+## 7. Commandes Git utiles
+
+| Commande | Description |
+|---|---|
+| `git log --oneline --graph --all` | Historique visuel. |
+| `git diff main..dev` | Différences entre branches. |
+| `git branch` | Lister les branches locales. |
+| `git branch -d feature/about-page` | Supprimer une branche locale. |
+| `git push origin --delete feature/about-page` | Supprimer une branche distante. |
+
+### Flux de travail courant
 
 ```bash
-git add nom_fichier.extension
-git commit -m "Ajout du fichier nom_fichier"
-git push
+git switch dev
+git pull origin dev
+git switch -c feature/about-page
+
+# développement
+
+git add .
+git commit -m "feat: ajout de la page À propos"
+git push -u origin feature/about-page
+
+# puis PR vers dev
+```
+
+### Version stable
+
+```bash
+git switch main
+git pull origin main
+git merge dev
+git tag -a v1.0.0 -m "Version stable 1.0.0"
+git push origin main
+git push origin v1.0.0
+```
+
+```bash
+git init
+git status
+git add .
+git commit -m "feat: description courte"
+git branch -M main
+git remote add origin git@github.com:mon-compte/Git-Repo-Exp.git
+git push -u origin main
+
+git switch -c dev
+git switch -c feature/about-page
+git push -u origin feature/about-page
+
+git switch dev
+git pull origin dev
+git merge feature/about-page
+git push origin dev
+
+git switch main
+git pull origin main
+git merge dev
+git tag -a v1.0.0 -m "Version stable 1.0.0"
+git push origin main
+git push origin v1.0.0
+```
+
+---
+
+## 8. Version stable
+
+Les tags comme `v1.0.0` marquent les versions stables sur `main`.
+
+Exemple :
+
+```bash
+git tag -a v1.0.0 -m "Version stable 1.0.0"
+git push origin v1.0.0
 ```
 
 ---
 
 ## Conclusion
 
-> À ce stade, on dispose d'une application Flask simple, versionnée avec Git, hébergée sur GitHub et intégrée à une chaîne CI GitHub Actions. Cette structure constitue une excellente base pour apprendre le développement collaboratif et faire évoluer le projet avec de nouvelles fonctionnalités.
+À ce stade, on dispose d'une application Flask simple, versionnée avec Git, hébergée sur GitHub et intégrée à une chaîne CI GitHub Actions. Cette structure constitue une excellente base pour apprendre le développement collaboratif et faire évoluer le projet avec de nouvelles fonctionnalités.
 
 ---
