@@ -29,58 +29,6 @@ Exemples de Badges GitHub spécifiques au repo disponibles :
 
 ---
 
-## Table des matières
-
-<!-- TOC START -->
-- [Guide — Créer, versionner et développer un projet Flask avec Git et GitHub](#guide--créer-versionner-et-développer-un-projet-flask-avec-git-et-github)
-    - [Technologies](#technologies)
-    - [Informations sur le dépôt](#informations-sur-le-dépôt)
-  - [Table des matières](#table-des-matières)
-  - [Introduction](#introduction)
-    - [Objectif](#objectif)
-    - [Technologies](#technologies-1)
-    - [Schéma d'architecture](#schéma-darchitecture)
-  - [1. Préparation de l’environnement](#1-préparation-de-lenvironnement)
-  - [2. Premier commit du projet](#2-premier-commit-du-projet)
-    - [Fichier `.gitignore`](#fichier-gitignore)
-    - [Fichier `README.md` et Initialisation Git](#fichier-readmemd-et-initialisation-git)
-    - [Création du dépôt GitHub](#création-du-dépôt-github)
-    - [Liaison avec GitHub](#liaison-avec-github)
-  - [3. Création de l’application Flask](#3-création-de-lapplication-flask)
-    - [Nouvelle structure du projet](#nouvelle-structure-du-projet)
-    - [Fichier `app.py`](#fichier-apppy)
-    - [Fichier `templates/index.html`](#fichier-templatesindexhtml)
-    - [Test local du projet](#test-local-du-projet)
-    - [Enregistrer le travail](#enregistrer-le-travail)
-  - [4. Workflow de branches](#4-workflow-de-branches)
-    - [Diagramme Git](#diagramme-git)
-    - [Développement de la fonctionnalité](#développement-de-la-fonctionnalité)
-    - [Arborescence après la fonctionnalité](#arborescence-après-la-fonctionnalité)
-    - [`app.py`](#apppy)
-    - [`templates/index.html`](#templatesindexhtml)
-      - [`templates/about.html`](#templatesabouthtml)
-      - [`static/style.css`](#staticstylecss)
-    - [Tester localement](#tester-localement)
-    - [Enregistrer les modifications](#enregistrer-les-modifications)
-    - [Intégration dans `dev`](#intégration-dans-dev)
-    - [Publication de la version stable](#publication-de-la-version-stable)
-    - [Workflow de branches](#workflow-de-branches)
-  - [5. Tests avec Pytest](#5-tests-avec-pytest)
-    - [Installation](#installation)
-    - [Fichier `tests/test_app.py`](#fichier-teststest_apppy)
-    - [Exécution des tests](#exécution-des-tests)
-  - [6. Intégration continue](#6-intégration-continue)
-    - [Structure attendue](#structure-attendue)
-    - [Fichier `.github/workflows/ci.yml`](#fichier-githubworkflowsciyml)
-  - [7. Commandes Git utiles](#7-commandes-git-utiles)
-    - [Flux de travail courant](#flux-de-travail-courant)
-    - [Version stable](#version-stable)
-  - [8. Version stable](#8-version-stable)
-  - [Conclusion](#conclusion)
-<!-- TOC END -->
-
----
-
 ## Introduction
 
 ### Objectif
